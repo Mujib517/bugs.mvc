@@ -1,1 +1,16 @@
-<h1>List of Bugs</h1>
+<br/>
+<div class="col-md-4">
+    <div>
+        <a href="/bugs/new" class="btn btn-success">Add New </a>
+
+    </div> <br/> {{#each bugs}}
+    <div class="well">
+        <a href="/bugs/{{_id}}">
+            <h3>{{name}}</h3>
+        </a>
+        <hr>
+        <div>{{description}}</div>
+        <b>{{category}}</b>
+    </div>
+    {{/each}}
+</div>

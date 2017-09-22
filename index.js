@@ -1,5 +1,9 @@
 const express = require('express');
 const hbs = require('express-hbs');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+const bugRouter = require('./routes/bug.router');
 
 const app = express();
 
@@ -9,7 +13,10 @@ app.listen(3000, function () {
     console.log("Running on port ", port);
 });
 
+mongoose.connection.openUri("mongodb://localhost/bugsdb");
+
 app.use(express.static("lib"));
+app.use(bodyParser.urlencoded());
 
 app.set('view engine', 'hbs');
 app.engine('hbs', hbs.express4({
@@ -21,7 +28,7 @@ app.engine('hbs', hbs.express4({
 
 
 app.get('/', function (req, res) {
-    res.render("pages/home");
+    res.render("pages/home", { title: 'Home' });
 });
 
 app.get('/about', function (req, res) {
@@ -32,6 +39,4 @@ app.get('/contact', function (req, res) {
     res.render("pages/contact");
 });
 
-app.get('/bugs', function (req, res) {
-    res.render("pages/bugs");
-});
+app.use('/bugs', bugRouter);
