@@ -8,6 +8,8 @@ router.post('/new', bugCtrl.save);
 
 router.get('/:id', bugCtrl.getById);
 
+router.post('/comments', bugCtrl.saveComment);
+
 
 
 

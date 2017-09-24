@@ -8,4 +8,30 @@
             {{bug.description}}
         </div>
     </div>
+
+    <form method="POST" action="/bugs/comments">
+        <div class="form-group">
+            <input type="text" class="hidden" name="bugId" placeholder="Name" class="form-control" value="{{bug._id}}" />
+        </div>
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="text" name="subject" placeholder="Subject" class="form-control" />
+        </div>
+        <div class="form-group">
+            <textarea type="text" name="message" placeholder="Message" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="pull-right btn btn-info">Save Comment</button>
+        </div>
+    </form>
+
+    {{#each bug.comments}}
+    <div class="well">
+        <h3>{{name}}</h3>
+        <h4>{{subject}}</h4>
+        <div>{{message}}</div>
+    </div>
+    {{/each}}
 </div>

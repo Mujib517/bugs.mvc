@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const bugRouter = require('./routes/bug.router');
+const userRouter = require('./routes/user.router');
+
 
 const app = express();
 
@@ -13,7 +15,7 @@ app.listen(3000, function () {
     console.log("Running on port ", port);
 });
 
-mongoose.connection.openUri("mongodb://localhost/bugsdb");
+mongoose.connection.openUri("mongodb://admin:admin@ds143744.mlab.com:43744/bugsdb");
 
 app.use(express.static("lib"));
 app.use(bodyParser.urlencoded());
@@ -40,3 +42,4 @@ app.get('/contact', function (req, res) {
 });
 
 app.use('/bugs', bugRouter);
+app.use('/user', userRouter);
