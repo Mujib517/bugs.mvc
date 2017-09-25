@@ -9,19 +9,13 @@ module.exports = {
     },
 
     //POST user/login
-    validate: function (req, res) {
+    validate: function (email, password, done) {
 
-        User.findOne({ email: req.body.email, password: req.body.password })
+        User.findOne({ email: email, password: password })
             .exec()
             .then(function (user) {
-                if (user) {
-                    //localhost:3000/bugs
-                    res.redirect("/bugs");
-                }
-                else {
-                    res.locals.errMsg = "Wrong username or password";
-                    res.redirect("/user/login");
-                }
+                if (user) done(null, user);
+                else done("wrong username or password");
             })
             .catch(function () {
                 res.redirect("/user/login");
