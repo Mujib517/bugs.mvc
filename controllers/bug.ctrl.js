@@ -1,5 +1,6 @@
 const Bug = require('../models/bug.model');
 const Comment = require('../models/comment.model');
+const moment = require("moment");
 
 module.exports = {
 
@@ -8,11 +9,19 @@ module.exports = {
             .sort("-lastModified")
             .exec()
             .then(function (bugs) {
-                res.render("pages/bugs", { bugs: bugs });
+
+                var jsonBugs = [];
+
+                bugs.forEach(function (element) {
+                    var jsonElem = element.toJSON();
+                    jsonElem.lastModified = moment(jsonElem.lastModified).format('MMMM Do YYYY');
+                    jsonBugs.push(jsonElem);
+                });
+
+                res.render("pages/bugs", { bugs: jsonBugs });
             })
             .catch(function (err) {
-                console.log(err);
-                //res.render("pages/error");
+                res.render("pages/error");
             });
     },
 
